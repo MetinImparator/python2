@@ -1,35 +1,44 @@
 import random
 import configparser
 
-def play_game():
+def играть_в_игру():
     config = configparser.ConfigParser()
     config.read('settings.ini')
-    my_money = int(config['DEFAULT']['MY_MONEY'])
-    slot_numbers = list(range(1, 11))
+    мои_деньги = int(config['DEFAULT']['MY_MONEY'])
 
     while True:
-        print(f"Your current balance: ${my_money}")
-        bet = int(input("Place your bet: "))
-        if bet > my_money:
-            print("You don't have enough money to place this bet.")
+        номера_слотов = list(range(1, 11))
+        print(f"Ваш текущий баланс: ${мои_деньги}")
+        ставка = int(input("Сделайте вашу ставку: "))
+        if ставка > мои_деньги:
+            print("У вас недостаточно денег для этой ставки.")
             continue
 
-        selected_slot = int(input("Choose a slot (1-10): "))
-        winning_slot = random.choice(slot_numbers)
+        while True:
+            выбранный_слот = input("Выберите слот (1-10): ")
+            if выбранный_слот == '':
+                print("Пожалуйста, введите число от 1 до 10.")
+                continue
+            if выбранный_слот.isdigit():
+                выбранный_слот = int(выбранный_слот)
+                break
+            else:
+                print("Пожалуйста, введите корректное число от 1 до 10.")
 
-        if selected_slot == winning_slot:
-            print(f"Congratulations! You win ${bet * 2}")
-            my_money += bet
+        выигрышный_слот = random.choice(номера_слотов)
+
+        if выбранный_слот == выигрышный_слот:
+            print(f"Поздравляем! Вы выиграли ${ставка * 2}")
+            мои_деньги += ставка
         else:
-            print(f"Sorry, the winning slot was {winning_slot}. You lose ${bet}")
-            my_money -= bet
+            print(f"Извините, выигрышный слот был {выигрышный_слот}. Вы проиграли ${ставка}")
+            мои_деньги -= ставка
 
-        play_again = input("Do you want to play again? (yes/no): ").lower()
-        if play_again != 'yes':
+        играть_еще = input("Хотите ли вы продолжить играть? (да/нет): ").lower()
+        if играть_еще != 'да':
             break
 
-    print(f"Game over! Your final balance is ${my_money}")
+    print(f"Игра окончена! Ваш итоговый баланс: ${мои_деньги}")
 
 if __name__ == "__main__":
-    play_game()
-
+    играть_в_игру()
