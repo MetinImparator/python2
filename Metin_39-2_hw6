@@ -1,0 +1,110 @@
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+def selection_sort(lst):
+    for i in range(len(lst)):
+        mn = min(range(i, len(lst)), key=lst.__getitem__)
+        lst[i], lst[mn] = lst[mn], lst[i]
+
+    return lst
+
+def binary_search(A, val):
+    first = 0
+    last = len(A) - 1
+    pos = None
+
+    while first <= last:
+        middle = (first + last) // 2
+        if val == A[middle]:
+            pos = middle
+            break
+        elif val > A[middle]:
+            first = middle + 1
+        else:
+            last = middle - 1
+
+    if pos is not None:
+        return f"Элемент {val} найден в позиции: {pos}"
+    else:
+        return f"Элемент {val} не найден"
+
+
+my_list = [15, 57, 274, 31, 54, 23, 97, 96, 52, 13, 148, 272, 961, 454, 76]
+A = selection_sort(my_list)
+print(A)
+
+print(binary_search(A, 87))
+print(binary_search(A, 0))
+print(binary_search(A, 31))
+
+# Пример использования:
+unsorted_list = [64, 34, 25, 12, 22, 11, 90]
+print("Неотсортированный список:", unsorted_list)
+
+sorted_list_bubble = bubble_sort(unsorted_list.copy())
+print("Отсортированный список (метод пузырьковой сортировки):", sorted_list_bubble)
+
+sorted_list_selection = selection_sort(unsorted_list.copy())
+print("Отсортированный список (метод сортировки выбором):", sorted_list_selection)
+
+target = 25
+index = binary_search(sorted_list_bubble, target)
+if index != -1:
+    print(f"Элемент {target} найден по индексу {index} в отсортированном списке (метод пузырьковой сортировки).")
+else:
+    print(f"Элемент {target} не найден в отсортированном списке (метод пузырьковой сортировки).")
+
+index = binary_search(sorted_list_selection, target)
+if index != -1:
+    print(f"Элемент {target} найден по индексу {index} в отсортированном списке (метод сортировки выбором).")
+else:
+    print(f"Элемент {target} не найден в отсортированном списке (метод сортировки выбором).")
+
+
+
+def bubble_sort(lis):
+    n = len(lis)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if lis[j] > lis[j + 1]:
+                lis[j], lis[j + 1] = lis[j + 1], lis[j]
+
+
+lis = [90, 48, 4, 1, 10, 91]
+bubble_sort(lis)
+print("Отсортированный список:")
+print(lis)
+
+
+def binary_search(val, a):
+    result_ok = False
+    first = 0
+    last = len(a) - 1
+    pos = 0
+
+    while first < last and not result_ok:
+        mid = (first + last) // 2
+        if val == a[mid]:
+            first = mid
+            last = first
+            result_ok = True
+            pos = mid
+        elif val > a[mid]:
+            first = mid + 1
+        else:
+            last = mid - 1
+
+    if result_ok:
+        print(f'Элемент найден.{pos}')
+    else:
+        print(f'Элемент не найден.')
+
+
+a = [1, 3, 5, 7, 9, 11, 13]
+target = 7
+binary_search(target, a)
